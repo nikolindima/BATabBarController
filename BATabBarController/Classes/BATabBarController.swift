@@ -21,7 +21,7 @@
 //SOFTWARE.
 
 import UIKit
-
+import SnapKit
 public protocol BATabBarControllerDelegate: AnyObject {
     func tabBarController(_ tabBarController: BATabBarController, didSelect: UIViewController)
 }
@@ -42,6 +42,12 @@ public class BATabBarController:  UIViewController {
                 let vc = viewControllers[i]
                 if let vcView = vc.view, let tabBar = tabBar {
                     self.view.insertSubview(vcView, belowSubview: tabBar)
+                    vcView.snp.makeConstraints { (make) in
+                        make.top.equalToSuperview()
+                        make.leading.equalToSuperview()
+                        make.trailing.equalToSuperview()
+                        make.bottom.equalTo(tabBar.snp.top)
+                    }
                 }
                 i -= 1
             }
